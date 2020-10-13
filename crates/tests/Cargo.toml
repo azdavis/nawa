@@ -4,6 +4,6 @@ version = "0.1.0"
 authors = ["Ariel Davis <ariel.z.davis@icloud.com>"]
 edition = "2018"
 
-[dependencies]
+[dev-dependencies]
 naive = { path = "../naive" }
 nawa = { path = "../nawa" }
