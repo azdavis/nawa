@@ -120,30 +120,21 @@ impl<T> Rope<T> {
   }
 }
 
-impl<T> PartialEq for Rope<T>
-where
-  T: PartialEq,
-{
+impl<T: PartialEq> PartialEq for Rope<T> {
   fn eq(&self, other: &Rope<T>) -> bool {
     self.to_vec() == other.to_vec()
   }
 }
 
-impl<T> Eq for Rope<T> where T: Eq {}
+impl<T: Eq> Eq for Rope<T> {}
 
-impl<T> PartialOrd for Rope<T>
-where
-  T: PartialOrd,
-{
+impl<T: PartialOrd> PartialOrd for Rope<T> {
   fn partial_cmp(&self, other: &Rope<T>) -> Option<std::cmp::Ordering> {
     self.to_vec().partial_cmp(&other.to_vec())
   }
 }
 
-impl<T> Ord for Rope<T>
-where
-  T: Ord,
-{
+impl<T: Ord> Ord for Rope<T> {
   fn cmp(&self, other: &Self) -> std::cmp::Ordering {
     self.to_vec().cmp(&other.to_vec())
   }

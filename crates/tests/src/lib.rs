@@ -2,10 +2,7 @@
 
 use nawa::Rope;
 
-fn to_vec<T>(r: &Rope<T>) -> Vec<T>
-where
-  T: Clone,
-{
+fn to_vec<T: Clone>(r: &Rope<T>) -> Vec<T> {
   r.to_vec().into_iter().cloned().collect()
 }
 
