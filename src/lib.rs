@@ -39,13 +39,13 @@ impl<T> Rope<T> {
     Self::of(Repr::node(a, Repr::node(b, c)))
   }
 
-  /// Deletes the `range` from this `Rope`.
+  /// Removes the `range` from this `Rope`.
   ///
   /// Panics iff:
   /// - `range.start > range.end`
   /// - `range.start >= len`
   /// - `range.end > len`
-  pub fn delete(self, range: std::ops::Range<usize>) -> Self {
+  pub fn remove(self, range: std::ops::Range<usize>) -> Self {
     assert!(range.start <= range.end);
     let (a, b) = self.repr.split(range.start);
     let (_, d) = b.split(range.end - range.start);
@@ -215,13 +215,13 @@ fn test_rope_good() {
   assert!(!r.is_empty());
   assert_eq!(to_vec(&r), b"breakfast");
 
-  let r = r.delete(3..8);
+  let r = r.remove(3..8);
 
   assert_eq!(to_vec(&r), b"bret");
   assert_eq!(r.len(), 4);
   assert!(!r.is_empty());
 
-  let r = r.delete(1..2);
+  let r = r.remove(1..2);
 
   assert_eq!(to_vec(&r), b"bet");
   assert_eq!(r.len(), 3);
@@ -239,7 +239,7 @@ fn test_rope_good() {
   assert_eq!(r.len(), 6);
   assert!(!r.is_empty());
 
-  let r = r.delete(0..6);
+  let r = r.remove(0..6);
 
   assert_eq!(to_vec(&r), b"");
   assert_eq!(r.len(), 0);
