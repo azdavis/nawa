@@ -2,6 +2,9 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Rope_(data_structure)
 
+#![deny(missing_docs)]
+
+/// A rope data structure.
 #[derive(Debug, Clone)]
 pub struct Rope<T> {
   repr: Repr<T>,
