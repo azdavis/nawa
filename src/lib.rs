@@ -19,6 +19,17 @@ impl<T> Rope<T> {
   /// Returns the length of this `Rope`.
   ///
   /// Computes in O(1).
+  ///
+  /// # Examples
+  ///
+  /// ```
+  /// use nawa::Rope;
+  ///
+  /// let r = Rope::new();
+  /// assert_eq!(r.len(), 0);
+  /// let r = r.insert(0, vec![2, 4, 6]);
+  /// assert_eq!(r.len(), 3);
+  /// ```
   pub fn len(&self) -> usize {
     self.repr.len()
   }
@@ -26,6 +37,17 @@ impl<T> Rope<T> {
   /// Returns whether this `Rope` is empty.
   ///
   /// Computes in O(1).
+  ///
+  /// # Examples
+  ///
+  /// ```
+  /// use nawa::Rope;
+  ///
+  /// let r = Rope::new();
+  /// assert!(r.is_empty());
+  /// let r = r.insert(0, vec![2, 4, 6]);
+  /// assert!(!r.is_empty());
+  /// ```
   pub fn is_empty(&self) -> bool {
     self.len() == 0
   }
@@ -33,6 +55,17 @@ impl<T> Rope<T> {
   /// Inserts `xs` into the `Rope` starting at `i`.
   ///
   /// Panics iff `i > len`.
+  ///
+  /// # Examples
+  ///
+  /// ```
+  /// use nawa::Rope;
+  ///
+  /// let r = Rope::from(vec![2, 4]);
+  /// assert_eq!(r.to_vec(), [&2, &4]);
+  /// let r = r.insert(1, vec![3]);
+  /// assert_eq!(r.to_vec(), [&2, &3, &4]);
+  /// ```
   pub fn insert(self, i: usize, xs: Vec<T>) -> Self {
     let (a, c) = self.repr.split(i);
     let b = Repr::Leaf(xs);
@@ -45,6 +78,16 @@ impl<T> Rope<T> {
   /// - `range.start > range.end`
   /// - `range.start >= len`
   /// - `range.end > len`
+  ///
+  /// # Examples
+  ///
+  /// ```
+  /// use nawa::Rope;
+  ///
+  /// let r = Rope::from(vec![2, 4, 6, 8]);
+  /// let r = r.remove(1..3);
+  /// assert_eq!(r.to_vec(), [&2, &8]);
+  /// ```
   pub fn remove(self, range: std::ops::Range<usize>) -> Self {
     assert!(range.start <= range.end);
     let (a, b) = self.repr.split(range.start);
@@ -55,6 +98,15 @@ impl<T> Rope<T> {
   /// Returns the `Vec` represented by this `Rope`.
   ///
   /// Computes in O(n).
+  ///
+  /// # Examples
+  ///
+  /// ```
+  /// use nawa::Rope;
+  ///
+  /// let r = Rope::from(vec![2, 4, 6, 8]);
+  /// assert_eq!(r.to_vec(), [&2, &4, &6, &8]);
+  /// ```
   pub fn to_vec(&self) -> Vec<&T> {
     self.repr.to_vec()
   }
