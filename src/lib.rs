@@ -28,9 +28,9 @@ impl<T> Rope<T> {
   /// ```
   /// use nawa::Rope;
   ///
-  /// let r = Rope::new();
+  /// let r: Rope<i32> = Rope::new();
   /// assert_eq!(r.len(), 0);
-  /// let r = r.insert(0, vec![2, 4, 6]);
+  /// let r = Rope::from(vec![2, 4, 6]);
   /// assert_eq!(r.len(), 3);
   /// ```
   pub fn len(&self) -> usize {
@@ -46,9 +46,9 @@ impl<T> Rope<T> {
   /// ```
   /// use nawa::Rope;
   ///
-  /// let r = Rope::new();
+  /// let r: Rope<i32> = Rope::new();
   /// assert!(r.is_empty());
-  /// let r = r.insert(0, vec![2, 4, 6]);
+  /// let r = Rope::from(vec![2, 4, 6]);
   /// assert!(!r.is_empty());
   /// ```
   pub fn is_empty(&self) -> bool {
