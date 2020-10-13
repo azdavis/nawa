@@ -5,4 +5,5 @@ authors = ["Ariel Davis <ariel.z.davis@icloud.com>"]
 edition = "2018"
 
 [dependencies]
+naive = { path = "../naive" }
 nawa = { path = "../nawa" }

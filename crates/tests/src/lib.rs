@@ -1,14 +1,23 @@
 #![cfg(test)]
 
-use nawa::Rope;
+mod rope_trait;
 
-fn to_vec<T: Clone>(r: &Rope<T>) -> Vec<T> {
+use rope_trait::Rope;
+
+fn to_vec<R, T>(r: &R) -> Vec<T>
+where
+  R: Rope<T>,
+  T: Clone,
+{
   r.to_vec().into_iter().cloned().collect()
 }
 
-#[test]
-fn test_rope_good() {
-  let r = Rope::from(b"break".to_vec());
+fn test_rope_good<R>()
+where
+  R: Rope<u8>,
+  Vec<u8>: Into<R>,
+{
+  let r: R = b"break".to_vec().into();
 
   assert_eq!(r.len(), 5);
   assert!(!r.is_empty());
@@ -52,10 +61,34 @@ fn test_rope_good() {
 }
 
 #[test]
+fn test_nawa_good() {
+  test_rope_good::<nawa::Rope<u8>>()
+}
+
+#[test]
+fn test_naive_good() {
+  test_rope_good::<naive::Rope<u8>>()
+}
+
+fn test_rope_bad<R>()
+where
+  R: Rope<u8>,
+  Vec<u8>: Into<R>,
+{
+  let r: R = b"hey".to_vec().into();
+  r.insert(123, b"nope".to_vec());
+}
+
+#[test]
 #[should_panic(
   expected = "index out of bounds: the len is 3 but the index is 123"
 )]
-fn test_rope_bad() {
-  let r = Rope::from(b"hey".to_vec());
-  r.insert(123, b"nope".to_vec());
+fn test_nawa_bad() {
+  test_rope_bad::<nawa::Rope<u8>>()
+}
+
+#[test]
+#[should_panic(expected = "`at` split index (is 123) should be <= len (is 3)")]
+fn test_naive_bad() {
+  test_rope_bad::<naive::Rope<u8>>()
 }
