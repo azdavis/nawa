@@ -184,12 +184,11 @@ impl<T> Repr<T> {
     }
     let mut work = Vec::with_capacity(1);
     let mut right = self;
-    loop {
+    let mut left = loop {
       match right {
         Repr::Leaf(mut xs) => {
           right = Repr::Leaf(xs.split_off(i));
-          work.push((Repr::Leaf(xs), Direction::Left));
-          break;
+          break Repr::Leaf(xs);
         }
         Repr::Node(node_l, _, node_r) => {
           if i < node_l.len() {
@@ -202,8 +201,7 @@ impl<T> Repr<T> {
           }
         }
       }
-    }
-    let mut left = Repr::new();
+    };
     for (repr, dir) in work.into_iter().rev() {
       match dir {
         Direction::Left => left = Repr::node(repr, left),
