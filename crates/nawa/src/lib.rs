@@ -66,8 +66,8 @@ impl<T> Rope<T> {
   ///
   /// let r = Rope::from(vec![2, 4]);
   /// assert_eq!(r.to_vec(), [&2, &4]);
-  /// let r = r.insert(1, vec![3]);
-  /// assert_eq!(r.to_vec(), [&2, &3, &4]);
+  /// let r = r.insert(1, vec![3, 5]);
+  /// assert_eq!(r.to_vec(), [&2, &3, &5, &4]);
   /// ```
   pub fn insert(self, i: usize, xs: Vec<T>) -> Self {
     let (a, c) = self.repr.split(i);
