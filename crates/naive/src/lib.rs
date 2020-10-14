@@ -78,10 +78,7 @@ impl<T> Rope<T> {
 
   /// Removes the `range` from this `Rope`.
   ///
-  /// Panics iff:
-  /// - `range.start > range.end`
-  /// - `range.start >= len`
-  /// - `range.end > len`
+  /// Panics iff the range is out of bounds.
   ///
   /// # Examples
   ///
@@ -93,6 +90,7 @@ impl<T> Rope<T> {
   /// assert_eq!(r.to_vec(), [&2, &8]);
   /// ```
   pub fn remove(self, range: std::ops::Range<usize>) -> Self {
+    assert!(range.start <= range.end);
     let repr: Vec<_> = self
       .repr
       .into_iter()

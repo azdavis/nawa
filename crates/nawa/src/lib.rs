@@ -77,10 +77,7 @@ impl<T> Rope<T> {
 
   /// Removes the `range` from this `Rope`.
   ///
-  /// Panics iff:
-  /// - `range.start > range.end`
-  /// - `range.start >= len`
-  /// - `range.end > len`
+  /// Panics iff the range is out of bounds.
   ///
   /// # Examples
   ///
