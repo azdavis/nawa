@@ -221,7 +221,7 @@ impl<T> Repr<T> {
           ret.extend(xs.iter());
           match work.pop() {
             None => break,
-            Some(x) => this = x,
+            Some(right) => this = right,
           }
         }
         Repr::Node(left, _, right) => {
