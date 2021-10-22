@@ -4,7 +4,6 @@
 
 use getrandom::getrandom;
 use oorandom::Rand32;
-use std::convert::TryFrom as _;
 
 fn get_seed() -> u64 {
   let mut buf = [0u8; 8];
